@@ -1,0 +1,53 @@
+﻿@model IEnumerable<btb5._1.Models.Product>
+
+<h2 class="text-center my-4">Danh Sách Sản Phẩm</h2>
+
+<div class="container">
+    <div class="row">
+        @if (!Model.Any())
+        {
+            <div class="col-12 text-center">
+                <p class="text-muted">Không có sản phẩm nào.</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var product in Model)
+            {
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <div class="card shadow-sm h-100">
+                        @if (!string.IsNullOrEmpty(product.ImageUrl))
+                        {
+                            <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover; border-bottom: 2px solid #f8f9fa;">
+                        }
+                        else
+                        {
+                            <img src="/images/default-placeholder.png" class="card-img-top" alt="No image" style="height: 200px; object-fit: cover; border-bottom: 2px solid #f8f9fa;">
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title text-truncate" title="@product.Name">@product.Name</h5>
+
+                            <p class="card-text">
+                                <strong>Giá bán:</strong> <span class="text-primary">@product.SellPrice.ToString("C")</span>
+                            </p>
+                            <p class="card-text text-truncate" title="@product.Description">
+                                <strong>Mô tả:</strong> @product.Description
+                            </p>
+                            <p class="card-text">
+                                <strong>Thể loại:</strong> @product.Category?.Name
+                            </p>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="d-flex justify-content-between">
+                                <a asp-action="Display" asp-route-id="@product.Id" class="btn btn-outline-success btn-sm w-100 me-1">Xem</a>
+                                <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-outline-warning btn-sm w-100 me-1">Sửa</a>
+                                <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-outline-danger btn-sm w-100">Xóa</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

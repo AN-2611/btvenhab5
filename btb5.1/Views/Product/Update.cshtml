@@ -1,0 +1,64 @@
+﻿@model btb5._1.Models.Product
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h2 class="text-center my-4">Edit Product</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Update" method="post" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">Product Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter product name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="BuyPrice" class="form-label fw-bold">Buy Price</label>
+                        <input asp-for="BuyPrice" class="form-control" placeholder="Enter buy price" />
+                        <span asp-validation-for="BuyPrice" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="SellPrice" class="form-label fw-bold">Sell Price</label>
+                        <input asp-for="SellPrice" class="form-control" placeholder="Enter sell price" />
+                        <span asp-validation-for="SellPrice" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-bold">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter product description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label fw-bold">Category</label>
+                    <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-select">
+                        <option value="" selected disabled>Select a category</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label fw-bold">Product Image</label>
+                    <input type="file" asp-for="ImageUrl" class="form-control" />
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <div class="mt-2">
+                            <img src="@Model.ImageUrl" alt="Product Image" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+                        </div>
+                    }
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary w-50">Update Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
